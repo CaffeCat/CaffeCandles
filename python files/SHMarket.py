@@ -29,14 +29,14 @@ def format_date(x,pos):
 sns.set()
 pro = ts.pro_api('8f8f3d53921ba974ece21d699a09d6f7381e0f2bdeb29ff535ef0945')
 
-df = pro.index_daily(ts_code='000001.SH', start_date='20150901')
+df = pro.index_daily(ts_code='000001.SH', start_date='20180901')
 df = df.sort_values(by='trade_date', ascending=True)
 df['trade_date2'] = df['trade_date'].copy()
 df['trade_date'] = pd.to_datetime(df['trade_date']).map(date2num)
 df['dates'] = np.arange(0, len(df))
 df.head()
 date_tickers = df.trade_date2.values
-fig, ax = plt.subplots(figsize=(10,5))
+fig, ax = plt.subplots(figsize=(20,10))
 ax.xaxis.set_major_formatter(ticker.FuncFormatter(format_date))
 mpl_finance.candlestick_ochl(
     ax=ax,
@@ -45,6 +45,5 @@ mpl_finance.candlestick_ochl(
     colorup='r',
     colordown='g',
     alpha=0.7)
-ax.set_title('SH Exchange(2018.9-)', fontsize=20)
-df.close.rolling(60).mean().plot()
+ax.set_title('SH Exchange', fontsize=20)
 plt.show()
